@@ -1,0 +1,68 @@
+<form style="width: 100%; height: 100%" class="box" [formGroup]="registerForm" novalidate (ngSubmit)="registerFormSubmit()">
+  <mat-card class="register-card">
+    <mat-card-header style="margin-top: 16px; margin-bottom: 16px">
+      <mat-card-title>注册</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="center">
+        <mat-form-field class="input">
+          <mat-label>邮箱</mat-label>
+          <label>
+            <input matInput placeholder="Ex. user" type="email" formControlName="email" required>
+          </label>
+          <mat-error *ngIf="emailControl.errors?.required">
+            邮箱不能为空
+          </mat-error>
+          <mat-error *ngIf="emailControl.errors?.email">
+            邮箱格式不正确
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="input">
+          <mat-label>用户名</mat-label>
+          <label>
+            <input matInput placeholder="Ex. user" formControlName="username" required>
+          </label>
+          <mat-hint>用户名4-20位，只能含有数字，字母，'_'，和'-'</mat-hint>
+          <mat-error *ngIf="usernameControl.errors?.required">
+            用户名不能为空
+          </mat-error>
+          <mat-error *ngIf="usernameControl.errors?.pattern">
+            用户名格式不正确
+          </mat-error>
+          <mat-error *ngIf="usernameControl.errors?.exists">
+            用户名已存在
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="input">
+          <mat-label>密码</mat-label>
+          <label>
+            <input matInput placeholder="Ex. password" formControlName="password" type="password" required>
+          </label>
+          <mat-hint>密码至少八位，并分别包含至少一个大写字母，小写字母和数字</mat-hint>
+          <mat-error *ngIf="passwordControl.errors?.required">
+            密码不能为空
+          </mat-error>
+          <mat-error *ngIf="passwordControl.errors?.pattern">
+            密码至少八位，并分别包含至少一个大写字母，小写字母和数字
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="input">
+          <mat-label>确认密码</mat-label>
+          <label>
+            <input matInput placeholder="Ex. password" formControlName="confirmPassword" type="password" [errorStateMatcher]="matcher" required>
+          </label>
+          <mat-error *ngIf="confirmPasswordControl.errors?.required">
+            确认密码不能为空
+          </mat-error>
+          <mat-error *ngIf="registerForm.errors?.passwordMismatch">
+            确认密码与密码不一致
+          </mat-error>
+        </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="button-bar">
+        <button (click)="loginButtonClicked()" mat-button>登陆</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">注册</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</form>

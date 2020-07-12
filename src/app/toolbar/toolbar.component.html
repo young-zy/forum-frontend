@@ -1,0 +1,15 @@
+<p>
+  <mat-toolbar color="primary">
+    <button mat-icon-button class="icon" aria-label="Back" (click)="backClicked()"
+            [style.visibility]="isRoot ? 'hidden' : 'visible'">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>Forum</span>
+    <span class="spacer"></span>
+    <button *ngIf="!user" (click)="loginButtonClicked()" mat-button>登陆</button>
+    <button *ngIf="!user" (click)="registerButtonClicked()" mat-raised-button>注册</button>
+    <button *ngIf="user" mat-icon-button color="accent">
+      <img mat-card-avatar src="assets/avatar.webp" alt="avatar" height="100%" width="100%" style="border-radius: 50%"/>
+    </button>
+  </mat-toolbar>
+</p>

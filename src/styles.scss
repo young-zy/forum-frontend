@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Noto Sans S Chinese Regular", "Helvetica Neue", sans-serif; }
+@import '~@angular/material/theming';
+
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+$custom-typography: mat-typography-config(
+  $font-family: 'Roboto, Noto Sans S Chinese, monospace',
+);
+
+@include angular-material-typography($custom-typography);
