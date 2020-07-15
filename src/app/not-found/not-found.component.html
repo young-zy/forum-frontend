@@ -1,2 +1,16 @@
-<p>page not found</p>
-<button mat-button (click)="backToIndex()">back to index</button>
+<div class="box content">
+  <mat-card class="card">
+    <mat-card-content class="center" style="margin: 32px">
+      <div class="mat-display-4" style="font-family: 'Arial Black',sans-serif">
+        404
+      </div>
+      <h1>page not found</h1>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="button-bar">
+        <button mat-button  (click)="backToIndex()">back to index</button>
+        <button mat-raised-button color="primary" (click)="backToLastPage()">back to last page</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

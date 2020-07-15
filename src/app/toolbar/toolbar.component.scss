@@ -4,3 +4,13 @@
 .icon{
   margin-right: 16px;
 }
+
+.user-card{
+  width: 240px;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

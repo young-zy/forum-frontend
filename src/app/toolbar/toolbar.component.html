@@ -1,15 +1,24 @@
-<p>
-  <mat-toolbar color="primary">
-    <button mat-icon-button class="icon" aria-label="Back" (click)="backClicked()"
-            [style.visibility]="isRoot ? 'hidden' : 'visible'">
-      <mat-icon>arrow_back</mat-icon>
-    </button>
-    <span>Forum</span>
-    <span class="spacer"></span>
-    <button *ngIf="!user" (click)="loginButtonClicked()" mat-button>登陆</button>
-    <button *ngIf="!user" (click)="registerButtonClicked()" mat-raised-button>注册</button>
-    <button *ngIf="user" mat-icon-button color="accent">
-      <img mat-card-avatar src="assets/avatar.webp" alt="avatar" height="100%" width="100%" style="border-radius: 50%"/>
-    </button>
-  </mat-toolbar>
-</p>
+<mat-toolbar color="primary" style="position: fixed; top: 0; z-index: 1000" role="heading">
+  <button mat-icon-button class="icon" aria-label="Back" (click)="backClicked()"
+          [style.visibility]="isRoot ? 'hidden' : 'visible'">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span>Forum</span>
+  <span class="spacer"></span>
+  <button *ngIf="!user" (click)="loginButtonClicked()" mat-button>登陆</button>
+  <button *ngIf="!user" (click)="registerButtonClicked()" mat-raised-button>注册</button>
+  <button *ngIf="user" mat-icon-button [matMenuTriggerFor]="menu" color="accent">
+    <img mat-card-avatar src="assets/avatar.webp" alt="avatar" height="100%" width="100%" style="border-radius: 50%"/>
+  </button>
+  <mat-menu #menu="matMenu">
+    <ng-template matMenuContent>
+      <div *ngIf="user" class="user-card">
+        <img src="assets/avatar.webp" alt="avatar" height="80px" width="80px" style="border-radius: 50%"/>
+        <h2 style="margin-bottom: 0">{{user.username}}</h2>
+        <h4 style="color: darkgray">{{user.email}}</h4>
+        <button mat-flat-button color="warn" (click)="logoutClicked()">登出</button>
+      </div>
+    </ng-template>
+  </mat-menu>
+</mat-toolbar>
+

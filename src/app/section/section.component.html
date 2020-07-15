@@ -1,3 +1,5 @@
-<div *ngFor="let section of sectionList">
-  <a routerLink="./{{section.sid}}">{{section.sectionName}}</a>
+<div class="content">
+  <div *ngFor="let section of sectionList">
+    <a routerLink="" (click)="toDetailedSection(section.sid)">{{section.sectionName}}</a>
+  </div>
 </div>

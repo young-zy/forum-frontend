@@ -1,0 +1,13 @@
+<div class="content">
+  <div *ngIf="threadObservable | async">
+    <p>{{thread.title}}</p>
+    <mat-card class="">
+      <div *ngFor="let reply of thread.replies">
+        {{reply | json}}
+      </div>
+    </mat-card>
+  </div>
+  <button mat-fab aria-label="post new reply" style="z-index: 5; position : fixed; right: 32px; bottom : 32px;">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

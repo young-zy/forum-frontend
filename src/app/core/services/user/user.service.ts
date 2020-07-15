@@ -37,6 +37,7 @@ export class UserService {
 
   logout(): void{
     if (window.localStorage.getItem('token')){
+      this.selfInfoSource.next(null);
       this.clearToken();
       this.http.post(`${environment.base_url}/user/logout`, {});
     }
@@ -76,5 +77,23 @@ export class UserService {
       }
     );
     return res;
+  }
+
+  updateUserInfo(user: any): Observable<any>{
+    return this.http.put(`${environment.base_url}/user`, {
+      username: user.username || null,
+      password: user.password,
+      email: user.email || null,
+      newPassword: user.newPassword
+    });
+  }
+
+  getAllUser(page: number, size: number): Observable<Response>{
+    return this.http.get<Response>(`${environment.base_url}/user/all`, {
+      params: {
+        page: page.toString(),
+        size: size.toString()
+      }
+    });
   }
 }

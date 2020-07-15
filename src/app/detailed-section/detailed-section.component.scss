@@ -1,18 +1,17 @@
-.login-card{
+.box{
+  width: 100%;
+  min-height: 100%;
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card{
   width: 30%;
   min-width: 240px;
   display: -webkit-flex; /* Safari */
   display: flex;
-  flex-direction: column;
-}
-
-.box{
-  width: 100%;
-  height: calc(100% - 64px);
-  display: -webkit-flex; /* Safari */
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
 }
 
@@ -23,11 +22,6 @@
   align-items: center;
 }
 
-.input{
-  width: 80%;
-  margin: 16px;
-}
-
 .button-bar{
   display: flex;
   flex-direction: row;
@@ -35,6 +29,8 @@
   padding: 16px;
 }
 
-.spacer {
-  flex: 1 1 auto;
+.thread-item{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }

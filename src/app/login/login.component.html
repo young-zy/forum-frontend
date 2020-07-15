@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" novalidate (ngSubmit)="formSubmit()" class="box">
+<form [formGroup]="loginForm" novalidate (ngSubmit)="formSubmit()" class="box content">
   <mat-card class="login-card">
     <mat-card-header style="margin-top: 16px; margin-bottom: 16px">
       <mat-card-title>登陆</mat-card-title>
@@ -22,7 +22,7 @@
           <mat-label>密码</mat-label>
           <label>
             <input matInput placeholder="Ex. password" type="password" name="password" required
-                   formControlName="password"
+                   formControlName="password" autocomplete="on"
             >
           </label>
           <mat-error *ngIf="passwordControl.errors?.required">

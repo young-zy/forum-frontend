@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+//html, body { height: 100%; }
+html { height: 100%; }
+body { height: calc(100vh - 64px); }
 body { margin: 0; font-family: Roboto, "Noto Sans S Chinese Regular", "Helvetica Neue", sans-serif; }
 @import '~@angular/material/theming';
 
@@ -11,3 +13,49 @@ $custom-typography: mat-typography-config(
 );
 
 @include angular-material-typography($custom-typography);
+
+.content {
+  margin-top: 64px;
+  //height: calc(100vh - 64px);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: darkgray;
+  border-radius: 10px;
+}
+
+/* Track Piece */
+::-webkit-scrollbar-track {
+  color: darkgray;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: dimgray;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4a4a4a;
+}
+
+.scroll::-webkit-scrollbar-track:vertical {
+  border-right:8px solid rgba(0,0,0,.2);
+}
+.scroll::-webkit-scrollbar-thumb:vertical {
+  border-right:8px solid rgba(255,255,255,.2);
+}
+.scroll::-webkit-scrollbar-track:horizontal {
+  border-bottom:8px solid rgba(0,0,0,.2);
+}
+.scroll::-webkit-scrollbar-thumb:horizontal {
+  border-bottom:8px solid rgba(255,255,255,.2);
+}

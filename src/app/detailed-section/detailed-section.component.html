@@ -1,0 +1,43 @@
+<div *ngIf="section" class="content box">
+  <mat-card style="display: flex; flex-direction: column; width: 60%; min-width: 360px; margin-top: 32px; margin-bottom: 16px">
+    <mat-card-header>
+      <div class="mat-display-1">{{section.sectionName}}</div>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-nav-list>
+        <a mat-list-item *ngFor="let thread of section.threads; last as last" style="width: 100%; height: 100%" (click)="threadClick(thread.tid)">
+          <div style="display: flex; width: 100%; padding-top: 16px; padding-bottom: 16px" >
+            <div class="thread-item">
+              <button mat-icon-button style="width: 48px; height: 48px; z-index: 1; margin-right: 16px;" (click)="avatarClicked(thread.author.uid)">
+                <img src="assets/avatar.webp" width="100%" height="100%"
+                     style="border-radius: 50%;"
+                     alt="{{thread.author.username}}"
+                />
+              </button>
+              <div style="width: 100%; display: flex; flex-direction: column">
+                <div style="font-size: small">
+                  {{thread.author.username}}
+                </div>
+                <div style="flex-grow: 2; margin-top: 4px; font-size: large">
+                    {{thread.title}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+        </a>
+      </mat-nav-list>
+    </mat-card-content>
+    <mat-card-footer style="margin-bottom: 16px">
+      <div style="display: flex; flex-direction: row; justify-content: center">
+        <button mat-stroked-button [disabled]="page<=1">上一页</button>
+        <button mat-stroked-button color="primary">{{page}}</button>
+        <button mat-stroked-button [disabled]="page>=section.totalPage">下一页</button>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+  <button mat-fab aria-label="post new thread" style="z-index: 5; position : fixed; right: 32px; bottom : 32px;">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+

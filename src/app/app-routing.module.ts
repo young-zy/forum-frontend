@@ -4,6 +4,9 @@ import {SectionComponent} from './section/section.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
+import {DetailedSectionComponent} from './detailed-section/detailed-section.component';
+import {ThreadComponent} from './thread/thread.component';
+import { UserComponent } from './user/user.component';
 
 
 const routes: Routes = [
@@ -14,7 +17,19 @@ const routes: Routes = [
   },
   {
     path: 'section',
-    component: SectionComponent
+    component: SectionComponent,
+  },
+  {
+    path: 'section/:sectionId',
+    component: DetailedSectionComponent
+  },
+  {
+    path: 'user/:userId',
+    component: UserComponent
+  },
+  {
+    path: 'thread/:threadId',
+    component: ThreadComponent
   },
   {
     path: 'login',

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Section } from '../core/entity/section';
 import { SectionService } from '../core/services/section/section.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-section',
@@ -12,7 +13,8 @@ export class SectionComponent implements OnInit {
   sectionList: Section[];
 
   constructor(
-    private sectionService: SectionService
+    private sectionService: SectionService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -23,6 +25,7 @@ export class SectionComponent implements OnInit {
     );
   }
 
-
-
+  toDetailedSection(sectionId): void{
+    this.router.navigate([`/section/${sectionId}`], { queryParams: { page: 1 } } ).then();
+  }
 }

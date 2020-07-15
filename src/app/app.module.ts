@@ -13,8 +13,11 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {TokenInterceptorService} from './core/interceptors/token-interceptor.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MarkdownModule} from 'ngx-markdown';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MarkdownModule } from 'ngx-markdown';
+import { DetailedSectionComponent } from './detailed-section/detailed-section.component';
+import { ThreadComponent } from './thread/thread.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import {MarkdownModule} from 'ngx-markdown';
     SectionComponent,
     NotFoundComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DetailedSectionComponent,
+    ThreadComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

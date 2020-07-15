@@ -36,11 +36,15 @@ export class ToolbarComponent implements OnInit {
   }
 
   loginButtonClicked(): void{
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']).then();
   }
 
   registerButtonClicked(): void{
-    this.router.navigate(['/register']);
+    this.router.navigate(['/register']).then();
+  }
+
+  logoutClicked(): void {
+    this.userService.logout();
   }
 
 }
