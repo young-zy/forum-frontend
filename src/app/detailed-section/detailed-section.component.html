@@ -36,7 +36,7 @@
       </div>
     </mat-card-footer>
   </mat-card>
-  <button mat-fab aria-label="post new thread" style="z-index: 5; position : fixed; right: 32px; bottom : 32px;">
+  <button mat-fab aria-label="post new thread" matTooltip="创建" style="z-index: 5; position : fixed; right: 32px; bottom : 32px;" (click)="openDialog()">
     <mat-icon>add</mat-icon>
   </button>
 </div>

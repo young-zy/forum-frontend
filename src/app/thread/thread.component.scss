@@ -1,0 +1,14 @@
+.card{
+  min-width: 240px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.box{
+  width: 100%;
+  min-height: 100%;
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

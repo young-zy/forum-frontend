@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import {User} from '../../entity/user';
-import {Observable, Subject} from 'rxjs';
-import {Response} from '../../entity/response';
+import { User } from '../../entity/user';
+import { Observable, ReplaySubject } from 'rxjs';
+import { Response } from '../../entity/response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private selfInfoSource = new Subject<User>();
+  private selfInfoSource = new ReplaySubject<User>(1);
 
   selfInfo = this.selfInfoSource.asObservable();
 
@@ -22,7 +22,9 @@ export class UserService {
     }
     const self = this.http.get<Response>(`${environment.base_url}/user`);
     self.subscribe(
-      data => this.selfInfoSource.next(data.user),
+      data => {
+        this.selfInfoSource.next(data.user);
+      },
       error => {                                  // if token exists but expired
         console.log(error);
         this.clearToken();

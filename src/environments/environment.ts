@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   base_url: 'https://home.young-zy.com:26132/api'
-  // base_url: 'http://localhost:8080'
 };
 
 /*

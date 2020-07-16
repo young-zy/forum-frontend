@@ -18,6 +18,8 @@ import { MarkdownModule } from 'ngx-markdown';
 import { DetailedSectionComponent } from './detailed-section/detailed-section.component';
 import { ThreadComponent } from './thread/thread.component';
 import { UserComponent } from './user/user.component';
+import { PostThreadComponent } from './detailed-section/post-thread/post-thread.component';
+import { PostReplyComponent } from './thread/post-reply/post-reply.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,12 @@ import { UserComponent } from './user/user.component';
     RegisterComponent,
     DetailedSectionComponent,
     ThreadComponent,
-    UserComponent
+    UserComponent,
+    PostThreadComponent,
+    PostReplyComponent
+  ],
+  entryComponents: [
+    PostThreadComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,7 @@ import { UserComponent } from './user/user.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MarkdownModule
+    MarkdownModule.forRoot()
   ],
   providers: [
     {

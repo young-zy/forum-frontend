@@ -3,6 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Section } from '../core/entity/section';
 import { SectionService } from '../core/services/section/section.service';
 import { combineLatest } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogData, PostThreadComponent } from './post-thread/post-thread.component';
+import { User } from '../core/entity/user';
+import { UserService } from '../core/services/user/user.service';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-detailed-section',
@@ -16,10 +21,15 @@ export class DetailedSectionComponent implements OnInit {
 
   public section: Section;
 
+  private user: User;
+  private savedForm: DialogData;
+
   constructor(
     private route: ActivatedRoute,
     private sectionService: SectionService,
-    private router: Router
+    private router: Router,
+    private userService: UserService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -28,6 +38,12 @@ export class DetailedSectionComponent implements OnInit {
         data => {
           this.sectionId = parseInt(data[0].get('sectionId'), 10);
           this.page = parseInt(data[1].get('page') || '1', 10);
+          this.savedForm = {
+            sectionId: this.sectionId,
+            title: '',
+            content: '',
+            isQuestion: true
+          };
           this.sectionService.getSection(this.sectionId, this.page)
             .subscribe(
             result => {
@@ -45,6 +61,9 @@ export class DetailedSectionComponent implements OnInit {
           );
         }
       );
+    this.userService.selfInfo.subscribe(
+      user => this.user = user
+    );
   }
 
   threadClick(threadId: number): void{
@@ -59,5 +78,27 @@ export class DetailedSectionComponent implements OnInit {
 
   avatarClicked(userId: number): void{
     this.router.navigate([`/user/${userId}`]).then();
+  }
+
+  openDialog(): void{
+    if (!this.user){
+      console.log('not logged in');
+      // TODO show snackbar
+      return;
+    }
+    this.savedForm.sectionId = this.sectionId;
+    const dialogRef = this.dialog.open(PostThreadComponent, {
+      data: this.savedForm
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true){
+        delay(1000);
+        this.ngOnInit();
+      }else{
+        this.savedForm = result ? result : this.savedForm;
+      }
+      console.log(`The dialog was closed with result ${result}`);
+    });
   }
 }

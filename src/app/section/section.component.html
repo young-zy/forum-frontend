@@ -1,5 +1,7 @@
-<div class="content">
-  <div *ngFor="let section of sectionList">
-    <a routerLink="" (click)="toDetailedSection(section.sid)">{{section.sectionName}}</a>
-  </div>
+<div *ngIf="sectionList" class="content box">
+  <mat-card style="display: flex; flex-direction: column; width: 60%; min-width: 360px; margin-top: 32px; margin-bottom: 16px">
+    <mat-nav-list>
+      <a *ngFor="let section of sectionList" mat-list-item (click)="toDetailedSection(section.sid)">{{section.sectionName}}</a>
+    </mat-nav-list>
+  </mat-card>
 </div>

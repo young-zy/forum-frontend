@@ -1,13 +1,37 @@
-<div class="content">
-  <div *ngIf="threadObservable | async">
-    <p>{{thread.title}}</p>
-    <mat-card class="">
-      <div *ngFor="let reply of thread.replies">
-        {{reply | json}}
-      </div>
-    </mat-card>
+<div class="box content">
+  <div *ngIf="thread" style="flex-direction: column; align-items: center; width: 70%;">
+    <div style="font-size: x-large; margin: 16px;">{{thread.title}}</div>
+    <div class="card">
+      <mat-card *ngFor="let reply of thread.replies" style="margin: 16px; display: flex; flex-direction: column; min-height: 256px;">
+        <div style="display: flex; flex-direction: row">
+          <button mat-icon-button style="width: 48px; height: 48px; z-index: 1; margin-right: 16px;" (click)="$event">
+            <img src="assets/avatar.webp" width="100%" height="100%"
+                 style="border-radius: 50%;"
+                 alt="{{reply.user.username}}"
+            />
+          </button>
+          <div style="display: flex; flex-direction: column;">
+            <div>{{reply.user.username}}</div>
+            <div>{{reply.replyTime}}</div>
+          </div>
+        </div>
+        <mat-card-content style="margin-left: 64px; margin-bottom: auto;">
+          <markdown [data]="reply.replyContent" ngPreserveWhitespaces katex emoji></markdown>
+        </mat-card-content>
+        <mat-card-actions style="display: flex; flex-direction: row; bottom: 16px; margin-top: auto; align-items: center;">
+          <button mat-icon-button (click)="upVoteClicked(reply)" style="margin-left: 16px;">
+            <mat-icon [color]="reply.vote == 1 ? 'primary' : undefined">thumb_up</mat-icon>
+          </button>
+          <div style="font-size: large">{{reply.upVote}}</div>
+          <mat-divider vertical inset style="height: 40px; margin-left: 16px; margin-right: 8px;"></mat-divider>
+          <button mat-icon-button (click)="downVoteClicked(reply)">
+            <mat-icon [color]="reply.vote == -1 ? 'warn' : undefined">thumb_down</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
-  <button mat-fab aria-label="post new reply" style="z-index: 5; position : fixed; right: 32px; bottom : 32px;">
+  <button mat-fab aria-label="post new reply" matTooltip="回复" style="z-index: 5; position : fixed; right: 32px; bottom : 32px;" (click)="openDialog()">
     <mat-icon>add</mat-icon>
   </button>
 </div>

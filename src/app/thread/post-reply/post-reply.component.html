@@ -1,0 +1,26 @@
+<ng-form [formGroup]="postReplyForm">
+  <h1 mat-dialog-title>创建新的回复</h1>
+  <mat-dialog-content style="display: flex; flex-direction: column">
+    <div style="display: flex; flex-direction: row; justify-content: center; overflow-y: auto; height: 480px;" cdkScrollable>
+      <mat-form-field appearance="fill" style="flex-grow: 1; min-width: 40%;">
+        <mat-label>内容</mat-label>
+        <label>
+          <textarea matInput formControlName="content"
+                    placeholder="请在此输入回复内容，支持markdown格式"
+                    [value]="data.content"
+                    cdkTextareaAutosize
+                    cdkAutosizeMinRows="20"
+          ></textarea>
+        </label>
+      </mat-form-field>
+      <div style="flex-grow: 1; margin: 16px">
+        <p>预览</p>
+        <markdown [data]="contentControl.value" ngPreserveWhitespaces katex emoji ></markdown>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="button-bar" style="align-self: flex-end;">
+    <button mat-button (click)="onCancelClick()">取消</button>
+    <button mat-raised-button color="primary" (click)="onSubmitClick()" [disabled]="!postReplyForm.valid">提交</button>
+  </mat-dialog-actions>
+</ng-form>

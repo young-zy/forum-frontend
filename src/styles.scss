@@ -16,7 +16,15 @@ $custom-typography: mat-typography-config(
 
 .content {
   margin-top: 64px;
-  //height: calc(100vh - 64px);
+  overflow: auto;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  max-width: 100%;
 }
 
 /* width */
@@ -27,12 +35,6 @@ $custom-typography: mat-typography-config(
 /* Track */
 ::-webkit-scrollbar-track {
   background: darkgray;
-  border-radius: 10px;
-}
-
-/* Track Piece */
-::-webkit-scrollbar-track {
-  color: darkgray;
   border-radius: 10px;
 }
 
