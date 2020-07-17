@@ -3,6 +3,11 @@ import { Router } from '@angular/router';
 import {AbstractControl, FormBuilder, FormControl, FormGroupDirective, NgForm, ValidationErrors, Validators} from '@angular/forms';
 import {UserService} from '../core/services/user/user.service';
 import {ErrorStateMatcher} from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  NotificationDialogComponent,
+  NotificationDialogData
+} from '../notification-dialog/notification-dialog.component';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +21,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    public dialog: MatDialog
   ) { }
 
   registerForm = this.formBuilder.group({
@@ -30,8 +36,19 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.selfInfo.subscribe(
-      () => {
-        if (!this.executeFlag){
+      user => {
+        if (!this.executeFlag && user){
+          const dialogData: NotificationDialogData = {
+            message: '已经登陆，将跳转至首页'
+          };
+          const dialogRef = this.dialog.open(NotificationDialogComponent, {
+            data: dialogData
+          });
+          dialogRef.afterClosed().subscribe(
+            () => {
+              this.router.navigate(['/']).then();
+            }
+          );
           console.log('already logged in');
         }
       }

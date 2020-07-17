@@ -80,6 +80,22 @@ export class DetailedSectionComponent implements OnInit {
     this.router.navigate([`/user/${userId}`]).then();
   }
 
+  nextPage(): void{
+    this.router.navigate([`/section/${this.sectionId}`], {
+      queryParams: {
+        page: this.page + 1
+      }
+    }).then();
+  }
+
+  previousPage(): void{
+    this.router.navigate([`/section/${this.sectionId}`], {
+      queryParams: {
+        page: this.page - 1
+      }
+    }).then();
+  }
+
   openDialog(): void{
     if (!this.user){
       console.log('not logged in');

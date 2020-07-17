@@ -30,9 +30,9 @@
     </mat-card-content>
     <mat-card-footer style="margin-bottom: 16px">
       <div style="display: flex; flex-direction: row; justify-content: center">
-        <button mat-stroked-button [disabled]="page<=1">上一页</button>
+        <button mat-stroked-button [disabled]="page<=1" (click)="previousPage()">上一页</button>
         <button mat-stroked-button color="primary">{{page}}</button>
-        <button mat-stroked-button [disabled]="page>=section.totalPage">下一页</button>
+        <button mat-stroked-button [disabled]="page>=section.totalPage" (click)="nextPage()">下一页</button>
       </div>
     </mat-card-footer>
   </mat-card>

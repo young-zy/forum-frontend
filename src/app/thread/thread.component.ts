@@ -11,6 +11,10 @@ import { User } from '../core/entity/user';
 import { UserService } from '../core/services/user/user.service';
 import { Reply } from '../core/entity/reply';
 import { ReplyService } from '../core/services/reply/reply.service';
+import {
+  ConfirmationDialogComponent,
+  ConfirmationDialogData
+} from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-thread',
@@ -22,8 +26,8 @@ export class ThreadComponent implements OnInit {
   private threadId: number;
   thread: Thread;
   threadObservable: Observable<Response>;
+  user: User;
   private page: number;
-  private user: User;
   private savedForm: DialogData;
 
   constructor(
@@ -32,7 +36,7 @@ export class ThreadComponent implements OnInit {
     private threadService: ThreadService,
     private userService: UserService,
     private replyService: ReplyService,
-    public dialog: MatDialog
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -42,6 +46,7 @@ export class ThreadComponent implements OnInit {
           this.threadId = parseInt(data[0].get('threadId'), 10);
           this.page = parseInt(data[1].get('page') || '1', 10);
           this.savedForm = {
+            state: false,
             threadId: this.threadId,
             content: ''
           };
@@ -65,7 +70,7 @@ export class ThreadComponent implements OnInit {
     );
   }
 
-  openDialog(): void{
+  openPostDialog(): void{
     if (!this.user){
       console.log('not logged in');
       // TODO show snackbar
@@ -76,10 +81,23 @@ export class ThreadComponent implements OnInit {
       data: this.savedForm
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true){
-        delay(1000);
-        this.ngOnInit();
+    dialogRef.afterClosed().subscribe((result: DialogData) => {
+      if (result && result.state){
+        this.replyService.postReply(
+          result.threadId, result.content
+        ).subscribe(
+          () => {
+            delay(1000);
+            this.ngOnInit();
+          },
+          error => {
+            console.log(error);
+            result.state = false;
+            this.dialog.open(PostReplyComponent, {
+              data: result
+            });
+          }
+        );
       }else{
         this.savedForm = result ? result : this.savedForm;
       }
@@ -125,5 +143,68 @@ export class ThreadComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  updateClicked(reply: Reply): void{
+    const dialogRef = this.dialog.open(PostReplyComponent, {
+      data: {
+        content: reply.replyContent
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result: DialogData) => {
+      if (result.state){
+        this.replyService.updateReply(
+          reply.replyId, result.content
+        ).subscribe(
+          () => {
+            delay(1000);
+            this.ngOnInit();
+          },
+          error => {
+            console.log(error);
+            result.state = false;
+          }
+        );
+      }
+      console.log(`The dialog was closed with result ${result}`);
+    });
+  }
+
+  deleteClicked(replyId: number): void{
+    const dialogData: ConfirmationDialogData = {
+      message: '是否要删除该回复？'
+    };
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result){
+        this.replyService.deleteReply(
+          replyId
+        ).subscribe(
+          () => {
+            delay(2000);
+            this.ngOnInit();
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+      console.log(`The dialog was closed with result ${result}`);
+    });
+  }
+
+  isAdmin(): boolean{
+    if (!this.user){
+      return false;   // not logged in
+    } else if (this.user.auth.systemAdmin){
+      return true;
+    } else {
+      return this.user.auth.sectionAdmin && this.thread.sectionId in this.user.auth.sections;
+    }
   }
 }

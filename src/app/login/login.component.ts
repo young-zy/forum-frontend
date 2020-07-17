@@ -2,6 +2,11 @@ import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../core/services/user/user.service';
 import {AbstractControl, FormBuilder, FormControl, ValidationErrors, Validators} from '@angular/forms';
+import {
+  NotificationDialogComponent,
+  NotificationDialogData
+} from '../notification-dialog/notification-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog
   ) { }
 
   get usernameControl(): FormControl{
@@ -35,8 +41,19 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.selfInfo.subscribe(
-      () => {
-        if (!this.executeFlag){
+      user => {
+        if (!this.executeFlag && user){
+          const dialogData: NotificationDialogData = {
+            message: '已经登陆，将跳转至首页'
+          };
+          const dialogRef = this.dialog.open(NotificationDialogComponent, {
+            data: dialogData
+          });
+          dialogRef.afterClosed().subscribe(
+            () => {
+              this.router.navigate(['/']).then();
+            }
+          );
           console.log('already logged in');
         }
       }

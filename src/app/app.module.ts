@@ -20,6 +20,8 @@ import { ThreadComponent } from './thread/thread.component';
 import { UserComponent } from './user/user.component';
 import { PostThreadComponent } from './detailed-section/post-thread/post-thread.component';
 import { PostReplyComponent } from './thread/post-reply/post-reply.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { NotificationDialogComponent } from './notification-dialog/notification-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { PostReplyComponent } from './thread/post-reply/post-reply.component';
     ThreadComponent,
     UserComponent,
     PostThreadComponent,
-    PostReplyComponent
+    PostReplyComponent,
+    ConfirmationDialogComponent,
+    NotificationDialogComponent
   ],
   entryComponents: [
     PostThreadComponent

@@ -17,11 +17,11 @@ export class ReplyService {
     return this.http.get<Response>(`${environment.base_url}/reply/${replyId}`);
   }
 
-  postReply(threadId: number, reply: any): Observable<any>{
+  postReply(threadId: number, replyContentParam: string): Observable<any>{
     return this.http.post(
       `${environment.base_url}/thread/${threadId}/reply`,
       {
-        replyContent: reply.replyContent
+        replyContent: replyContentParam
       }
     );
   }
@@ -38,11 +38,11 @@ export class ReplyService {
     );
   }
 
-  updateReply(replyId: number, reply: any): Observable<any>{
+  updateReply(replyId: number, reply: string): Observable<any>{
     return this.http.put(
       `${environment.base_url}/reply/${replyId}`,
       {
-        replyContent: reply.replyContent
+        replyContent: reply
       }
     );
   }

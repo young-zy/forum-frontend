@@ -39,7 +39,7 @@ export class PostThreadComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.dialogRef.updateSize('80%', '70%');
+    this.dialogRef.updateSize('90%', '70%');
   }
 
   onCancelClick(): void{

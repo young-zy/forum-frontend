@@ -10,12 +10,25 @@
                  alt="{{reply.user.username}}"
             />
           </button>
-          <div style="display: flex; flex-direction: column;">
+          <div style="display: flex; flex-direction: column; margin-right: auto">
             <div>{{reply.user.username}}</div>
             <div>{{reply.replyTime}}</div>
           </div>
+          <div style="margin-left: auto;">
+            <button *ngIf="user && reply.user.uid === user.uid" mat-icon-button matTooltip="编辑"
+                    [ngStyle]="{color: 'grey'}"
+                    (click)="updateClicked(reply)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button *ngIf="user && reply.priority < 9990 && (reply.user.uid === user.uid || isAdmin())" mat-icon-button matTooltip="删除"
+                    [ngStyle]="{color: 'grey'}"
+                    (click)="deleteClicked(reply.replyId)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </div>
         </div>
-        <mat-card-content style="margin-left: 64px; margin-bottom: auto;">
+        <mat-card-content style="margin-left: 64px; margin-top: 16px; margin-bottom: auto;">
           <markdown [data]="reply.replyContent" ngPreserveWhitespaces katex emoji></markdown>
         </mat-card-content>
         <mat-card-actions style="display: flex; flex-direction: row; bottom: 16px; margin-top: auto; align-items: center;">
@@ -31,7 +44,7 @@
       </mat-card>
     </div>
   </div>
-  <button mat-fab aria-label="post new reply" matTooltip="回复" style="z-index: 5; position : fixed; right: 32px; bottom : 32px;" (click)="openDialog()">
+  <button mat-fab aria-label="post new reply" matTooltip="回复" style="z-index: 5; position : fixed; right: 32px; bottom : 32px;" (click)="openPostDialog()">
     <mat-icon>add</mat-icon>
   </button>
 </div>

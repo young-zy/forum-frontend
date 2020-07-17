@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ReplyService } from '../../core/services/reply/reply.service';
 
 export interface DialogData {
+  state: boolean;
   threadId: number;
   content: string;
 }
@@ -27,6 +28,7 @@ export class PostReplyComponent implements OnInit {
   });
 
   onCancelClick(): void{
+    this.data.state = false;
     this.data.content = this.contentControl.value;
     this.dialogRef.close(this.data);
   }
@@ -39,23 +41,13 @@ export class PostReplyComponent implements OnInit {
     if (!this.postReplyForm.valid){
       return;
     }
-    const reply = {
-      replyContent: this.contentControl.value,
-    };
-    this.replyService.postReply(
-      this.data.threadId, reply
-    ).subscribe(
-      () => {
-        this.dialogRef.close(true);
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.data.state = true;
+    this.data.content = this.contentControl.value;
+    this.dialogRef.close(this.data);
   }
 
   ngOnInit(): void {
-    this.dialogRef.updateSize('80%', '70%');
+    this.dialogRef.updateSize('90%', '70%');
   }
 
 }

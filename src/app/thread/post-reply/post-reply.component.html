@@ -1,8 +1,8 @@
 <ng-form [formGroup]="postReplyForm">
   <h1 mat-dialog-title>创建新的回复</h1>
   <mat-dialog-content style="display: flex; flex-direction: column">
-    <div style="display: flex; flex-direction: row; justify-content: center; overflow-y: auto; height: 480px;" cdkScrollable>
-      <mat-form-field appearance="fill" style="flex-grow: 1; min-width: 40%;">
+    <div style="display: flex; flex-direction: row; overflow-y: auto; height: 480px;" cdkScrollable>
+      <mat-form-field appearance="fill" style="width: auto; min-width: 40%;">
         <mat-label>内容</mat-label>
         <label>
           <textarea matInput formControlName="content"
@@ -13,7 +13,7 @@
           ></textarea>
         </label>
       </mat-form-field>
-      <div style="flex-grow: 1; margin: 16px">
+      <div style="width: auto; margin: 16px">
         <p>预览</p>
         <markdown [data]="contentControl.value" ngPreserveWhitespaces katex emoji ></markdown>
       </div>
