@@ -1,5 +1,5 @@
 <div class="box content">
-  <div *ngIf="thread" style="flex-direction: column; align-items: center; width: 70%;">
+  <div *ngIf="thread" style="flex-direction: column; align-items: center; width: 70%; min-width: 320px;">
     <div style="font-size: x-large; margin: 16px;">{{thread.title}}</div>
     <div class="card">
       <mat-card *ngFor="let reply of thread.replies" style="margin: 16px; display: flex; flex-direction: column; min-height: 256px;">
